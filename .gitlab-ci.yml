@@ -2,14 +2,16 @@ stages:
   - build
   - test
 
-job 1:
+build_job:
   stage: build
-  tags: dotnet-2.1
+  tags:
+    - dotnet-2.1
   script: dotnet build
 
-job 2:
+test_job:
   stage: test
-  tags: dotnet-2.1
+  tags:
+    - dotnet-2.1
   script:
     - cd HelloTest
     - dotnet test
