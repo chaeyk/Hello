@@ -16,7 +16,8 @@ namespace Hello
 
         public int Add(int l, int r)
         {
-            return l + r;
+            A = l + r;
+            return A;
         }
     }
 
