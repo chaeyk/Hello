@@ -4,10 +4,12 @@ stages:
 
 job 1:
   stage: build
+  tags: dotnet-2.1
   script: dotnet build
 
 job 2:
   stage: test
+  tags: dotnet-2.1
   script:
     - cd HelloTest
     - dotnet test
