@@ -12,6 +12,8 @@ namespace Hello
 
     public class Calculator
     {
+        public int A;
+
         public int Add(int l, int r)
         {
             return l + r;
