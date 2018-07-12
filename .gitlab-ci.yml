@@ -27,7 +27,7 @@ sonarqube_job:
     - echo "CI_COMMIT_SHA $CI_COMMIT_SHA"
     - echo "CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME"
     - echo "CI_PROJECT_ID $CI_PROJECT_ID"
-    - dotnet sonarscanner begin /k:Hello /d:sonar.host.url=https://sonarqube.npsdev.cloud /d:sonar.login=$SONAR_USER_CHAEYK /d:sonar.gitlab.commit_sha=$CI_COMMIT_SHA /d:sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME /d:sonar.gitlab.project_id=$CI_PROJECT_ID /d:sonar.gitlab.json_mode=CODECLIMATE /d:sonar.gitlab.failure_notification_mode=commit-status /d:sonar.analysis.mode=preview
+    - dotnet sonarscanner begin /k:Hello /d:sonar.host.url=$SONAR_HOST /d:sonar.login=$SONAR_USER_CHAEYK /d:sonar.gitlab.commit_sha=$CI_COMMIT_SHA /d:sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME /d:sonar.gitlab.project_id=$CI_PROJECT_ID /d:sonar.gitlab.json_mode=CODECLIMATE /d:sonar.gitlab.failure_notification_mode=commit-status /d:sonar.analysis.mode=preview
     - dotnet build
     - dotnet sonarscanner end /d:sonar.login=$SONAR_USER_CHAEYK
 
