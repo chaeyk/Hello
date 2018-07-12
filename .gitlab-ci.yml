@@ -26,5 +26,8 @@ sonarqube_job:
   script:
     - dotnet sonarscanner begin /k:Hello /d:sonar.host.url=$SONAR_HOST /d:sonar.login=$SONAR_USER_CHAEYK
     - dotnet build
+    - cd HelloTest
+    - dotnet test
+    - cd ..
     - dotnet sonarscanner end /d:sonar.login=$SONAR_USER_CHAEYK
 
