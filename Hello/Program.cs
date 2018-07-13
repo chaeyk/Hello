@@ -7,6 +7,8 @@ namespace Hello
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World! {0}", (new Calculator()).Add(1, 2));
+            Console.WriteLine("Hello World! {0}", (new Calculator()).Sub(1, 2));
+            Console.WriteLine("Hello World! {0}", (new Calculator()).Mul(1, 2));
         }
     }
 
@@ -17,6 +19,24 @@ namespace Hello
         public int Add(int l, int r)
         {
             A = l + r;
+            return A;
+        }
+
+        public int Sub(int l, int r)
+        {
+            A = l - r;
+            return A;
+        }
+
+        public int Mul(int l, int r)
+        {
+            A = l * r;
+            return A;
+        }
+
+        public int Div(int l, int r)
+        {
+            A = l / r;
             return A;
         }
     }
