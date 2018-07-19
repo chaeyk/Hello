@@ -17,6 +17,7 @@ namespace Hello
         public int A;
         public int B;
         public int C;
+        public int D;
 
         public int Add(int l, int r)
         {
