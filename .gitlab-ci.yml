@@ -9,13 +9,14 @@ build:
   image: microsoft/dotnet:2.1-sdk
   script: dotnet build
 
-test:
+test_master:
   stage: test
+  only:
+    - master
   tags:
     - docker
   image: chaeyk/sonarscanner-netcore:2.1-sdk
   script:
-    - echo project_id $CI_PROJECT_PATH
     - dotnet sonarscanner begin /k:Hello /d:sonar.host.url=$SONAR_HOST /d:sonar.login=$SONAR_USER_CHAEYK /d:sonar.sourceEncoding=UTF-8 /d:sonar.cs.opencover.reportsPaths="./coverage.xml" /d:sonar.gitlab.project_id=$CI_PROJECT_PATH /d:sonar.gitlab.commit_sha=$CI_COMMIT_SHA /d:sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
     - dotnet build
     - cd tools
@@ -31,3 +32,27 @@ test:
     - cd ..
     - dotnet sonarscanner end /d:sonar.login=$SONAR_USER_CHAEYK
 
+test_feature:
+  stage: test
+  only:
+    - /^feature\/*/
+  tags:
+    - docker
+  image: chaeyk/sonarscanner-netcore:2.1-sdk
+  script:
+    - git checkout origin/master
+    - git merge $CI_COMMIT_REF --no-commit --no-ff
+    - dotnet sonarscanner begin /k:Hello /d:sonar.host.url=$SONAR_HOST /d:sonar.login=$SONAR_USER_CHAEYK /d:sonar.sourceEncoding=UTF-8 /d:sonar.cs.opencover.reportsPaths="./coverage.xml" /d:sonar.gitlab.project_id=$CI_PROJECT_PATH /d:sonar.gitlab.commit_sha=$CI_COMMIT_SHA /d:sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME /d:sonar.analysis.mode=preview
+    - dotnet build
+    - cd tools
+    - dotnet restore
+    - dotnet minicover instrument --workdir ../ --assemblies **/bin/**/*.dll
+    - dotnet minicover reset
+    - cd ..
+    - dotnet test --no-build HelloTest/HelloTest.csproj
+    - cd tools
+    - dotnet minicover uninstrument --workdir ../
+    - dotnet minicover report --workdir ../ --threshold 0
+    - dotnet minicover opencoverreport --workdir ../ --threshold 0 --output "./coverage.xml"
+    - cd ..
+    - dotnet sonarscanner end /d:sonar.login=$SONAR_USER_CHAEYK
