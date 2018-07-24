@@ -1,6 +1,7 @@
 stages:
-  - build
   - test
+  - build
+  - deploy
 
 build:
   stage: build
@@ -34,8 +35,8 @@ test_master:
 
 test_feature:
   stage: test
-  only:
-    - /^feature\/*/
+  except:
+    - master
   tags:
     - docker
   image: chaeyk/sonarscanner-netcore:2.1-sdk
@@ -58,3 +59,34 @@ test_feature:
     - dotnet minicover opencoverreport --workdir ../ --threshold 0 --output "./coverage.xml"
     - cd ..
     - dotnet sonarscanner end /d:sonar.login=$SONAR_USER_CHAEYK
+
+deploy_dev:
+  stage: deploy
+  only:
+    - /^dev\/.+$/
+  tags:
+    - docker
+  image: bash:4.4
+  script:
+    - echo "Deploy Dev~!"
+
+deploy_qa:
+  stage: deploy
+  only:
+    - /^qa\/.+$/
+  tags:
+    - docker
+  image: bash:4.4
+  script:
+    - echo "Deploy Qa~!"
+
+deploy_prod:
+  stage: deploy
+  only:
+    - master
+  tags:
+    - docker
+  image: bash:4.4
+  script:
+    - echo "Deploy Prod~!"
+
