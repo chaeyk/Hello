@@ -67,6 +67,7 @@ deploy_dev:
   tags:
     - docker
   image: bash:4.4
+  when: manual
   script:
     - echo "Deploy Dev~!"
 
@@ -77,6 +78,7 @@ deploy_qa:
   tags:
     - docker
   image: bash:4.4
+  when: manual
   script:
     - echo "Deploy Qa~!"
 
@@ -87,6 +89,7 @@ deploy_prod:
   tags:
     - docker
   image: bash:4.4
+  when: manual
   script:
     - echo "Deploy Prod~!"
 
