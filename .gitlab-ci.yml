@@ -33,7 +33,7 @@ test_master:
     - cd ..
     - dotnet sonarscanner end /d:sonar.login=$SONAR_USER_CHAEYK
 
-test_feature:
+test_branch:
   stage: test
   except:
     - master
