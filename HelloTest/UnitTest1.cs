@@ -13,7 +13,7 @@ namespace HelloTest
             Assert.Equal(3, calc.Add(1, 2));
             Assert.Equal(-1, calc.Sub(1, 2));
             Assert.Equal(2, calc.Mul(1, 2));
-            Assert.Equal(2, calc.Div(2, 1));
+            Assert.Equal(3, calc.Div(2, 1));
         }
     }
 }
