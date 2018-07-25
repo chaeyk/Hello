@@ -16,7 +16,7 @@ test_master:
     - master
   tags:
     - docker
-  image: chaeyk/sonarscanner-netcore:2.1-sdk
+  image: chaeyk/sonarscanner-dotnet:2.1-sdk
   script:
     - dotnet sonarscanner begin /k:Hello /d:sonar.host.url=$SONAR_HOST /d:sonar.login=$SONAR_USER_CHAEYK /d:sonar.sourceEncoding=UTF-8 /d:sonar.cs.opencover.reportsPaths="./coverage.xml" /d:sonar.gitlab.project_id=$CI_PROJECT_PATH /d:sonar.gitlab.commit_sha=$CI_COMMIT_SHA /d:sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
     - dotnet build
@@ -39,7 +39,7 @@ test_feature:
     - master
   tags:
     - docker
-  image: chaeyk/sonarscanner-netcore:2.1-sdk
+  image: chaeyk/sonarscanner-dotnet:2.1-sdk
   script:
     - git config --global user.email $GITLAB_USER_EMAIL
     - git config --global user.name $GITLAB_USER_ID
